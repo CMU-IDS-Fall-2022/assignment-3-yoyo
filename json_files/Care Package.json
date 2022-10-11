@@ -1,0 +1,565 @@
+{
+    "data": {
+        "album": {
+            "playability": {
+                "playable": true
+            },
+            "tracks": {
+                "totalCount": 17,
+                "items": [
+                    {
+                        "uid": "171bcd4e22b8210e7cb3",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:1qyFlfPREPbRcS2BNszdYI",
+                            "name": "Dreams Money Can Buy",
+                            "playcount": "27909356",
+                            "discNumber": 1,
+                            "trackNumber": 1,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 253803
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "ca45bc6b0111440058e1",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:0Tacxc5lDJ8LwiO1pWNSl8",
+                            "name": "The Motion",
+                            "playcount": "76970957",
+                            "discNumber": 1,
+                            "trackNumber": 2,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 240956
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "b4430cfe79647a8eb970",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:4n4BflhWjCHIxrI4v7Xt9s",
+                            "name": "How Bout Now",
+                            "playcount": "55715007",
+                            "discNumber": 1,
+                            "trackNumber": 3,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 235566
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "ec22db87f42e9ad5562f",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:4Wjhj0WjkyECccfHVIgaTq",
+                            "name": "Trust Issues",
+                            "playcount": "123696899",
+                            "discNumber": 1,
+                            "trackNumber": 4,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 281518
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "fa01f4a7875b56d7dd1d",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:4czcw3NVLY0of5hTD7OufN",
+                            "name": "Days in The East",
+                            "playcount": "21444998",
+                            "discNumber": 1,
+                            "trackNumber": 5,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 353697
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "d638a219cde1fc21637b",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:3W3FVHEDetkiRkkGKDmdir",
+                            "name": "Draft Day",
+                            "playcount": "17703010",
+                            "discNumber": 1,
+                            "trackNumber": 6,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 266325
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "3cbc476d78c6d628e7ce",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:6C9SwoZ5OrxcvkntgA5t8s",
+                            "name": "4pm in Calabasas",
+                            "playcount": "27691114",
+                            "discNumber": 1,
+                            "trackNumber": 7,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 240217
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "040403bf52abcd1665d4",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:0FnxK9FEAQyPJ284QcieNb",
+                            "name": "5 Am in Toronto",
+                            "playcount": "27864361",
+                            "discNumber": 1,
+                            "trackNumber": 8,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 205264
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "3e9187545ba28581e14a",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:3sMC6vfTTSa0mMAPTwzDVD",
+                            "name": "I Get Lonely",
+                            "playcount": "18906127",
+                            "discNumber": 1,
+                            "trackNumber": 9,
+                            "contentRating": {
+                                "label": "NONE"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 253561
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "edea5f4848fa519d804d",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:4alHkxxwAhvoGg3dJCATKV",
+                            "name": "My Side",
+                            "playcount": "12673503",
+                            "discNumber": 1,
+                            "trackNumber": 10,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 294650
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "e4ad12e5721f3c537e8c",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:2xUHiyGeGrWmmfv7NbDTWC",
+                            "name": "Jodeci Freestyle (feat. J. Cole)",
+                            "playcount": "15584447",
+                            "discNumber": 1,
+                            "trackNumber": 11,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 254022
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    },
+                                    {
+                                        "uri": "spotify:artist:6l3HvQ5sa6mXTsMTB19rO5",
+                                        "profile": {
+                                            "name": "J. Cole"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "7c15eaf8f145fcfc6022",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:6MR5IBSNfDmiwnrlQpVw4w",
+                            "name": "Club Paradise",
+                            "playcount": "18960394",
+                            "discNumber": 1,
+                            "trackNumber": 12,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 283816
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "0f4c004723529408315a",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:18t8ypY0HYaQuGBxg2KdT2",
+                            "name": "Free Spirit (feat. Rick Ross)",
+                            "playcount": "13924338",
+                            "discNumber": 1,
+                            "trackNumber": 13,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 252884
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    },
+                                    {
+                                        "uri": "spotify:artist:1sBkRIssrMs1AbVkOJbc7a",
+                                        "profile": {
+                                            "name": "Rick Ross"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "68d16fd54a37d530da19",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:27Tqjd2nMW2mIp6Yk1ovwY",
+                            "name": "Heat Of The Moment",
+                            "playcount": "8801181",
+                            "discNumber": 1,
+                            "trackNumber": 14,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 343455
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "fd96bd51d06f35e6321b",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:56NDFbD0tCUawnqeU2wcvv",
+                            "name": "Girls Love Beyoncé (feat. James Fauntleroy)",
+                            "playcount": "38436763",
+                            "discNumber": 1,
+                            "trackNumber": 15,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 225011
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    },
+                                    {
+                                        "uri": "spotify:artist:5ooSG9S0glqP5ZrqqaHBvT",
+                                        "profile": {
+                                            "name": "James Fauntleroy"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "926abbfefbc93aa30c77",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:73IE87H0g2MBmdn41lkVto",
+                            "name": "Paris Morton Music",
+                            "playcount": "20492405",
+                            "discNumber": 1,
+                            "trackNumber": 16,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 251239
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uid": "b70a08d8bfb10c145c77",
+                        "track": {
+                            "saved": false,
+                            "uri": "spotify:track:3e0ZGE7Gp034iLknjQk4QW",
+                            "name": "Can I",
+                            "playcount": "53710366",
+                            "discNumber": 1,
+                            "trackNumber": 17,
+                            "contentRating": {
+                                "label": "EXPLICIT"
+                            },
+                            "relinkingInformation": null,
+                            "duration": {
+                                "totalMilliseconds": 189289
+                            },
+                            "playability": {
+                                "playable": true
+                            },
+                            "artists": {
+                                "items": [
+                                    {
+                                        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                                        "profile": {
+                                            "name": "Drake"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "extensions": {
+        "cacheControl": {
+            "version": 1.0,
+            "hints": []
+        }
+    }
+}
