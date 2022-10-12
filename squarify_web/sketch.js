@@ -1,151 +1,4 @@
-import streamlit as st
-import pandas as pd
-import altair as alt
 
-
-from altair import Color,Scale
-from streamlit.components.v1 import html
-import numpy as np
-from streamlit.elements.image import image_to_url
-
-colorOliva='93,92,25'
-
-def get_slide_data_tomas(df,artists,albums):
-    labels = pd.Series([1] * len(df), index=df.index)
-
-    if artists:
-        labels &= df['artist'].isin(artists)
-    if albums:
-        labels &= df['album'].isin(albums)
-    
-    return labels
-
-st.title("Let's analyze some Spotify Data 🐧📊.")
-
-
-
-# const canvas = document.getElementById('defaultCanvas0')
-# const img    = canvas.toDataURL('image/png')
-# document.getElementById('existing-image-id').src = img
-
-@st.cache  # add caching so we load the data only once
-def load_data():
-    data_path = "spotify_data.csv"
-    return pd.read_csv(data_path)
-
-df = load_data()
-ourArtist=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'] #we are only interested in songs of this 5 artists
-df=df[df['artist'].isin(ourArtist)]
-
-
-
-st.write("Let's look at raw data in the Pandas Data Frame.")
-
-print(df)
-
-st.write(df.head(1))
-
-st.write("Which are the top played songs of the most streamed artists on spotify? ")
-
-# selection
-artist_brush = alt.selection_multi(fields = ["artist"])
-
-
-#selection.multi
-artist_chart = alt.Chart(df).mark_bar().encode(
-  Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
-    x = "sum(playcount)",
-    y = alt.Y("artist",sort='-x'),
-    
-).add_selection(artist_brush)
-
-album_chart = alt.Chart(df).mark_bar().encode(
-  Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
-    x = "count()",
-    y = alt.Y("album"),
-    
-).transform_filter(artist_brush)
-
-st.write(artist_chart&album_chart)
-
-
-# st.write("total songs",df['artist'].count())
-cols=st.columns(2)
-
-st.write('Filter dataset by artists and album:')
-with cols[0]:
-    artists=st.multiselect('artist',df[df['artist'].isin(ourArtist)]['artist'].unique(),default=["ROSALÍA"]) # we add a default so we can plot an initial chart
-with cols[1]:
-    albums=st.multiselect('album',df[df['artist'].isin(artists)]['album'].unique())
-
-# print(artists)
-slice_labels=get_slide_data_tomas(df,artists,albums)
-st.write("The filtered dataset contains {} songs".format(slice_labels.sum()))
-
-song_count=st.slider('number_songs',
-                    min_value=0,
-                    max_value=len(slice_labels[slice_labels==1]),
-                    value=10)
-
-st.write("From the filtered dataset we are now comparing the top listened {} songs".format(song_count))
-
-
-ordered_dataset=df[slice_labels].sort_values(by='playcount',ascending=False).head(n=song_count)
-st.write(len(ordered_dataset))
-song_playcount=ordered_dataset['playcount'].mean()
-st.metric('Mean listeners per song','{:,}'.format(song_playcount))
-# st.write(ordered_dataset)
-
-chart1=alt.Chart(ordered_dataset).mark_bar().encode(
-  Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
-    x='sum(playcount)',
-    y=alt.Y('name',sort='-x'),
-    # color='artist'
-)
-
-chart2=alt.Chart(ordered_dataset).mark_bar().encode(
-  Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
-    x='sum(playcount)',
-    y=alt.Y('album',sort='-x'),
-    # color='artist'
-)
-
-cols_=st.columns(2)
-
-
-with cols_[0]:
-    st.altair_chart(chart1)
-with cols_[1]:
-    st.altair_chart(chart2)
-
-
-
-# chart = alt.Chart(df).mark_point().encode(
-#     x=alt.X("body_mass_g", scale=alt.Scale(zero=False)),
-#     y=alt.Y("flipper_length_mm", scale=alt.Scale(zero=False)),
-#     color=alt.Y("species")
-# ).properties(
-#     width=600, height=400
-# ).interactive()
-
-# st.write(chart)
-
-# st.write(ordered_dataset)
-countValues=ordered_dataset.groupby(['name'])['playcount'].sum().sort_values()
-# st.write(countValues)
-
-
-# Wrapt the javascript as html code
-# html(f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>')
-my_html2 =f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>'+ '''<div style="background-color: lightblue;"><div id="p5_div" style="width:100%;height:auto;"></div><script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script><script>
 //intital parameters
 var play = true
 
@@ -171,7 +24,7 @@ function convertToPercentages(l) {
         //////console.log(x,perc)
         result.push(perc)
     })
-    ////console.log("CONVERTED", l, "INTO", result)
+    console.log("CONVERTED", l, "INTO", result)
     return result
 }
 
@@ -383,7 +236,7 @@ function squarify(children, row, subdivision, interval, result) {
             p = sumRow / (sumRow + sumChildren)
             //print('p = sumRow / (sumRow + sumChildren)',p ,sumRow ,sumChildren)
             if (subdivision[0] >= subdivision[1]) {
-
+                //print('-\n-\n-\n-> vertical')
                 //vertical
                 subdivision[0]=subdivision[0]*(1-p)
                 x0 = interval[0]
@@ -399,7 +252,7 @@ function squarify(children, row, subdivision, interval, result) {
                 interval = int2
             }
             else {
-
+                //print('-\n-\n-\n-> horizontal')
                 //horizontal
                 subdivision[1]=subdivision[1]*(1-p)
                 x0 = interval[2]
@@ -480,10 +333,13 @@ let toptext = 'This program generates a layout plan for roomsizes of ' + roomStr
 function drawRectangle(plan, layout,song) {
     // print('->drawing rectangle for',song)
     let a =(layout[1] - layout[0]) * (plan[2] - plan[0])* (layout[3] - layout[2]) * (plan[3] - plan[1])/(350*350)
-   fill(93,92,25,Math.floor(255*a*2.5));
+    console.log('width height',(layout[1] - layout[0]) * (plan[2] - plan[0]),(layout[3] - layout[2]) * (plan[3] - plan[1]),a)
+    console.log('fill',0,255,Math.floor(a*100),Math.floor(255*a))
+    fill(255,75,75,Math.floor(255*a*2.5));
     rect(plan[0] + layout[0] * (plan[2] - plan[0]), plan[1] + layout[2] * (plan[3] - plan[1]), (layout[1] - layout[0]) * (plan[2] - plan[0]), (layout[3] - layout[2]) * (plan[3] - plan[1]))
     
 }
+
 // given a layout list, //print the reectangles
 function drawLayout(plan, rectangles) {
     ////console.log('plan', plan)
@@ -503,6 +359,8 @@ function drawLayout(plan, rectangles) {
     }
         
 }
+
+
 
 function setup() {
     create_layout_squarify()
@@ -527,36 +385,38 @@ function setup() {
     // changeValue()
     // text('[ '+str(hor)+', '+str(ver)+' ]', 0, windowHeight-30, windowWidth, windowHeight);
     // textAlign(CENTER)
+    print(plan)
+    print(layout)
     drawLayout(plan, layout)
     
 }
 
-function draw() {
-    create_layout_squarify()
-    //  background(155);
-    // text(toptext,10,10,50,50);
-    r = p1.radious
-    // changeValue()
-    // createCanvas(windowWidth, windowHeight);
-    // textAlign(CENTER);
-    background(250);
-    fill('black')
-    // text(toptext,20,windowHeight-40,500,windowHeight-10);
+// function draw() {
+//     create_layout_squarify()
+//     //  background(155);
+//     // text(toptext,10,10,50,50);
+//     r = p1.radious
+//     // changeValue()
+//     // createCanvas(windowWidth, windowHeight);
+//     // textAlign(CENTER);
+//     background(250);
+//     fill('black')
+//     // text(toptext,20,windowHeight-40,500,windowHeight-10);
     
-    strokeWeight(1)
-    // p1.draw()
-    // p2.draw()
-    plan = [p1.x, p1.y, p2.x, p2.y]
-    initialSquareSize=[p2.x-p1.x,p2.y-p1.y]
-    fill(0)
-    hor=parseInt(initialSquareSize[0])
-    ver=parseInt(initialSquareSize[1])
-    // changeValue()
-    // text('[ '+str(hor)+', '+str(ver)+' ]', 0, windowHeight-30, windowWidth, windowHeight);
-    // textAlign(CENTER)
-    // // print(roomSizes)
-    drawLayout(plan, layout)
-}
+//     strokeWeight(1)
+//     // p1.draw()
+//     // p2.draw()
+//     plan = [p1.x, p1.y, p2.x, p2.y]
+//     initialSquareSize=[p2.x-p1.x,p2.y-p1.y]
+//     fill(0)
+//     hor=parseInt(initialSquareSize[0])
+//     ver=parseInt(initialSquareSize[1])
+//     // changeValue()
+//     // text('[ '+str(hor)+', '+str(ver)+' ]', 0, windowHeight-30, windowWidth, windowHeight);
+//     // textAlign(CENTER)
+//     // // print(roomSizes)
+//     drawLayout(plan, layout)
+// }
 //     // //print('drawing')
 //     background(250);
 //     fill('black')
@@ -593,14 +453,4 @@ function draw() {
 //     // text(toptext,10,10,50,50);
 
 // }
-
-
-
-</script><body><main></main></body>
-
-'''
-# Execute your app
-st.write("Visualize the count with squarify")
-html(my_html2,width=500, height=500)
-st.markdown("This project was created by Student1 and Student2 for the [Interactive Data Science](https://dig.cmu.edu/ids2022) course at [Carnegie Mellon University](https://www.cmu.edu).")
 

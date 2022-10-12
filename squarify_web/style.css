@@ -1,0 +1,37 @@
+html, body {
+  align:center;
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+        
+html, body {
+height: 100%;
+text-align: center;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    align: middle;
+}
+div {
+  
+  display: inline;
+}
+.container{
+  display: inline;
+}
+
+.sg{
+  flex:block;
+}
+
