@@ -3,6 +3,16 @@ import pandas as pd
 import altair as alt
 from streamlit.components.v1 import html
 
+def get_slide_data(df,artists,albums):
+    labels = pd.Series([1] * len(df), index=df.index)
+
+    if artists:
+        labels &= df['artist'].isin(artists)
+    if albums:
+        labels &= df['album'].isin(albums)
+    
+    return labels
+
 st.title("Let's analyze some Penguin Data 🐧📊.")
 
 @st.cache  # add caching so we load the data only once
@@ -17,6 +27,39 @@ st.write("Let's look at raw data in the Pandas Data Frame.")
 st.write(df)
 
 st.write("Which are the top played songs of the most streamed artists on spotify? ")
+
+# st.write("total songs",df['artist'].count())
+cols=st.columns(2)
+
+us=['Drake','keshi']
+ourArtist=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'] #we are only interested in songs of this 5 artists
+with cols[0]:
+    artists=st.multiselect('artist',df[df['artist'].isin(ourArtist)]['artist'].unique())
+with cols[1]:
+    albums=st.multiselect('album',df[df['artist'].isin(artists)]['album'].unique())
+
+# print(artists)
+slice_labels=get_slide_data(df,artists,albums)
+
+song_count=st.slider('number_songs',
+                    min_value=0,
+                    max_value=len(slice_labels[slice_labels==1]),
+                    value=(len(slice_labels[slice_labels==1])))
+
+st.write("The sliced dataset contains {} elements".format(slice_labels.sum()))
+
+
+ordered_dataset=df[slice_labels].sort_values(by='playcount',ascending=False).head(song_count)
+song_playcount=ordered_dataset['playcount'].mean()
+st.metric('Mean listeners per song',song_playcount)
+st.write(ordered_dataset)
+
+chart=alt.Chart(ordered_dataset).mark_bar().encode(
+    x='sum(playcount)',
+    y='name'
+)
+
+st.altair_chart(chart)
 
 # chart = alt.Chart(df).mark_point().encode(
 #     x=alt.X("body_mass_g", scale=alt.Scale(zero=False)),
