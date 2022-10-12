@@ -2,9 +2,13 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
+
 from altair import Color,Scale
 from streamlit.components.v1 import html
 import numpy as np
+from streamlit.elements.image import image_to_url
+
+
 
 def get_slide_data_tomas(df,artists,albums):
     labels = pd.Series([1] * len(df), index=df.index)
@@ -17,6 +21,11 @@ def get_slide_data_tomas(df,artists,albums):
     return labels
 
 st.title("Let's analyze some Spotify Data 🐧📊.")
+
+
+# const canvas = document.getElementById('defaultCanvas0')
+# const img    = canvas.toDataURL('image/png')
+# document.getElementById('existing-image-id').src = img
 
 @st.cache  # add caching so we load the data only once
 def load_data():
@@ -128,30 +137,66 @@ print(countValues.to_numpy())
 print(type(countValues.to_numpy()))
 st.write(countValues.to_numpy())
 # st.write(ordered_dataset)
-# Define your javascript
-my_js = """
-alert("Hola mundo");
-"""
+
+
+
 
 # Wrapt the javascript as html code
+
 my_html = '''<div style="width:1000px;height: 500px;background-color: lightblue;"><div id="p5_div" style="width:100%;height:auto;"></div><script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script><script>
+
+
+
+let bugs = []; // array of Jitter objects
+
 function setup() {
-    fill(200)
-    var myCanvas = createCanvas(800, 800);
-    myCanvas.parent("p5_div");
+  
+  let c = createCanvas(800, 800);
+  // Create objects
+  for (let i = 0; i < 50; i++) {
+    bugs.push(new Jitter());
+  }
+  background(50, 89, 100);
+  ellipse(400, 400, 800, 800);
+  
+  for (let i = 0; i < bugs.length; i++) {
+    bugs[i].move();
+    bugs[i].display();
+  }
+
+  
+}
+function draw(){
+  for (let i = 0; i < bugs.length; i++) {
+    bugs[i].move();
+    bugs[i].display();
+  }
 }
 
-function draw() {
-    if (mouseIsPressed) {
-        fill(0);
-    } else {
-        fill(255);
-    }
-    ellipse(mouseX, mouseY, 80, 80);
+// Jitter class
+class Jitter {
+  constructor() {
+    this.x = random(width);
+    this.y = random(height);
+    this.diameter = random(10, 30);
+    this.speed = 1;
+  }
+
+  move() {
+    this.x += random(-this.speed, this.speed);
+    this.y += random(-this.speed, this.speed);
+  }
+
+  display() {
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
 }
-</script><body><main></main></body>'
+
+
+
+</script><body><main></main></body>
 
 '''
 # Execute your app
 st.title("Javascript example")
-html(my_html)
+html(my_html,width=800, height=800)
