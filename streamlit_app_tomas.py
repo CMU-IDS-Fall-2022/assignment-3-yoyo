@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 from streamlit.components.v1 import html
 
-def get_slide_data(df,artists,albums):
+def get_slide_data_tomas(df,artists,albums):
     labels = pd.Series([1] * len(df), index=df.index)
 
     if artists:
@@ -13,7 +13,7 @@ def get_slide_data(df,artists,albums):
     
     return labels
 
-st.title("Let's analyze some Penguin Data 🐧📊.")
+st.title("Let's analyze some Spotify Data 🐧📊.")
 
 @st.cache  # add caching so we load the data only once
 def load_data():
@@ -21,6 +21,7 @@ def load_data():
     return pd.read_csv(data_path)
 
 df = load_data()
+ourArtist=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'] #we are only interested in songs of this 5 artists
 
 st.write("Let's look at raw data in the Pandas Data Frame.")
 
@@ -28,18 +29,23 @@ st.write(df)
 
 st.write("Which are the top played songs of the most streamed artists on spotify? ")
 
+artist_chart=alt.Chart(df[df['artist'].isin(ourArtist)]).mark_bar().encode(
+    x='sum(playcount)',
+    y=alt.Y('artist',sort='-x'),
+    color='artist'
+)
+st.altair_chart(artist_chart)
 # st.write("total songs",df['artist'].count())
 cols=st.columns(2)
 
 us=['Drake','keshi']
-ourArtist=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'] #we are only interested in songs of this 5 artists
 with cols[0]:
     artists=st.multiselect('artist',df[df['artist'].isin(ourArtist)]['artist'].unique())
 with cols[1]:
     albums=st.multiselect('album',df[df['artist'].isin(artists)]['album'].unique())
 
 # print(artists)
-slice_labels=get_slide_data(df,artists,albums)
+slice_labels=get_slide_data_tomas(df,artists,albums)
 
 song_count=st.slider('number_songs',
                     min_value=0,
@@ -52,14 +58,16 @@ st.write("The sliced dataset contains {} elements".format(slice_labels.sum()))
 ordered_dataset=df[slice_labels].sort_values(by='playcount',ascending=False).head(song_count)
 song_playcount=ordered_dataset['playcount'].mean()
 st.metric('Mean listeners per song',song_playcount)
-st.write(ordered_dataset)
+# st.write(ordered_dataset)
 
 chart=alt.Chart(ordered_dataset).mark_bar().encode(
     x='sum(playcount)',
-    y='name'
+    y=alt.Y('name',sort='-x'),
+    color='artist'
 )
 
 st.altair_chart(chart)
+
 
 # chart = alt.Chart(df).mark_point().encode(
 #     x=alt.X("body_mass_g", scale=alt.Scale(zero=False)),
