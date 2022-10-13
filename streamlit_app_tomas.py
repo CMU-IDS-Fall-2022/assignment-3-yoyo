@@ -166,10 +166,13 @@ cols_ = st.columns(2)
 
 with cols_[0]:
     st.altair_chart(chart1)
+
 with cols_[1]:
     st.altair_chart(chart2)
+    st.caption('''*Note that the songs displayed in the left chart and the slider count may differ. This is because some artist have the same song title in two different albums, so when we make a count by song name, this two 'different' songs will appear as one.''')
 
-st.write('The following graph shows in form of areas the relationships between the total reproductions of the songs. ')
+st.write(' ') #break in the main website, equal to \n
+st.write('The following graph shows in form of areas the relationships between the total reproductions of the songs. This is based on the squarify function that divides the total area of the following square proportional to the total number of reproductions of each song. ')
 
 countValues = ordered_dataset.groupby(
     ['name'])['playcount'].sum().sort_values()
@@ -181,6 +184,10 @@ my_html2 = f'<script>var songs={list(countValues.to_dict().keys())};var roomSize
  //**Reused code from Previous class Generative
  // systems where I developed the squarify function 
  // to generate floor plans
+
+ //this code is the same as in javascriptCode.js
+ //but we had to hard-code it here, as we couldn't 
+ //reference it to the actual javascript file
 ///////////////////////////////////////////////////////
 
 //intital parameters
@@ -492,7 +499,7 @@ function draw() {
 '''
 # Add html to streamlit app
 html(my_html2, width=500, height=500)
-st.caption('The following graph shows in form of areas the relationships between the total reproductions of the songs. ')
+st.caption('''*Note that this is visualization is not a final one, just testing javascript and p5.js.''')
 
 ############
 # Hongyu's part
@@ -582,6 +589,5 @@ duration_chart_album = alt.Chart(ordered_dataset_hongyu).mark_bar().encode(
 st.write(duration_chart_song)
 st.write(duration_chart_album)
 
-st.write('[1] https://chartmasters.org/most-streamed-artists-ever-on-spotify/')
 st.markdown(
     "This project was created by Hongyu Mao and Tomas Cabezon for the [Interactive Data Science](https://dig.cmu.edu/ids2022) course at [Carnegie Mellon University](https://www.cmu.edu).")
