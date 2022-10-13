@@ -8,7 +8,9 @@ from streamlit.components.v1 import html
 import numpy as np
 from streamlit.elements.image import image_to_url
 
-colorOliva='93,92,25'
+colorOliva='rgb(93,92,25)'
+ourScale=Scale(domain=['keshi', 'Drake', 'Ed Sheeran','Bad Bunny' , 'ROSALÍA'],
+                      range=['#4E4270', '#3E8394', '#91C79A',  '#AD886F','#F5E193',])
 
 def get_slide_data_tomas(df,artists,albums):
     labels = pd.Series([1] * len(df), index=df.index)
@@ -20,7 +22,7 @@ def get_slide_data_tomas(df,artists,albums):
     
     return labels
 
-st.title("Let's analyze some Spotify Data 🐧📊.")
+st.title("Let's analyze some Spotify Data 🎶🎤🧑🏻‍🎤📊.")
 
 
 
@@ -54,8 +56,7 @@ artist_brush = alt.selection_multi(fields = ["artist"])
 #selection.multi
 artist_chart = alt.Chart(df).mark_bar().encode(
   Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
+          scale=ourScale),
     x = "sum(playcount)",
     y = alt.Y("artist",sort='-x'),
     
@@ -63,8 +64,7 @@ artist_chart = alt.Chart(df).mark_bar().encode(
 
 album_chart = alt.Chart(df).mark_bar().encode(
   Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
+          scale=ourScale),
     x = "count()",
     y = alt.Y("album"),
     
@@ -102,8 +102,7 @@ st.metric('Mean listeners per song','{:,}'.format(song_playcount))
 
 chart1=alt.Chart(ordered_dataset).mark_bar().encode(
   Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
+          scale=ourScale),
     x='sum(playcount)',
     y=alt.Y('name',sort='-x'),
     # color='artist'
@@ -111,8 +110,7 @@ chart1=alt.Chart(ordered_dataset).mark_bar().encode(
 
 chart2=alt.Chart(ordered_dataset).mark_bar().encode(
   Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=['black', 'gold','red','blue','pink'])),
+          scale=ourScale),
     x='sum(playcount)',
     y=alt.Y('album',sort='-x'),
     # color='artist'
@@ -512,7 +510,7 @@ function setup() {
     // changeValue()
     createCanvas(windowWidth, windowHeight);
     textAlign(CENTER);
-    background(250);
+    background(244, 244, 240);
     fill('black')
     // text(toptext,20,windowHeight-40,500,windowHeight-10);
     
@@ -539,7 +537,7 @@ function draw() {
     // changeValue()
     // createCanvas(windowWidth, windowHeight);
     // textAlign(CENTER);
-    background(250);
+   background(244, 244, 240);
     fill('black')
     // text(toptext,20,windowHeight-40,500,windowHeight-10);
     
