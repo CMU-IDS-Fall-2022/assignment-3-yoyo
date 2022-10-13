@@ -3,13 +3,13 @@ import pandas as pd
 import altair as alt
 
 
-from altair import Color, Scale
+from altair import Color,Scale
 from streamlit.components.v1 import html
 import numpy as np
-
+from streamlit.elements.image import image_to_url
 
 # Claim the color #
-colorOliva = '93,92,25'
+colorOliva='93,92,25'
 B = "#4001F4"
 G = "#4b917d"
 R = "#f037a5"
@@ -18,150 +18,115 @@ O = "#ff5500"
 Y = "#ffa51e"
 
 
+
 # Get slides#
-def get_slide_data_tomas(df, artists, albums):
+def get_slide_data_tomas(df,artists,albums):
     labels = pd.Series([1] * len(df), index=df.index)
 
     if artists:
         labels &= df['artist'].isin(artists)
     if albums:
         labels &= df['album'].isin(albums)
-
+    
     return labels
 
 
+
 # Start#
-st.title("Let's analyze some Spotify Data! 🎤🧑🏻‍🎤📊.")
+st.title("Let's analyze some Spotify Data🎤🧑🏻‍🎤📊.")
 
-st.write('''This project is based on music data we collected from Spotify. 
-This assigment serves as an intial step for the final project, so we wanted to not only get more 
-familiarized with altair, but also with creating a dataset or trying to embed other visualization
- tools like p5.js. The main aim of this project is to compare the top 3 streamed artists on spotify:
-  Ed Sheeran, Drake and Bad Bunny [[1](https://chartmasters.org/most-streamed-artists-ever-on-spotify/)], 
-  with our favorite artists; Rosalía for Tomas and Keshi for Hongyu. ''')
-
-st.write('''For this assigment wee started geting the necesary data from Spotify. 
-We started gatering the .JSON files that Spotify Server sends to out browser when
-we access an artists discography on the web. We combined and clean all this files
-in a single .CSV to further analisys for this assigment. Bellow the used dataset
-can be seen:''')
-
-st.write(' ') #break in the main website, equal to \n
 
 # Load Data #
-# add caching so we load the data only once
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)  # add caching so we load the data only once
 def load_data():
     data_path = "spotify_data.csv"
     return pd.read_csv(data_path)
 
-df = load_data()
-# Add one colum for listen duration in hours#
-df["listen_duration"] = (df["playcount"] * df["duration"]).div(60000)
 
-df=df[['album', 'trackNumber' ,'name', 'artist','playcount','other artist','listen_duration', 'uri']]
+df = load_data()
+# Add one colum for listen duration #
+df["listen_duration"] = (df["playcount"] * df["duration"]).div(60000)
+ourArtist=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'] #we are only interested in songs of this 5 artists
+df=df[df['artist'].isin(ourArtist)]
+
+
+st.write("Let's look at raw data in the Pandas Data Frame.")
+
 st.write(df)
 
-
-# we are only interested in songs of this 5 artists
-# we found that there are some albums that contains songs of different artist,
-# for example Bad Bunny's album 'EL ULTIMO TOUR DEL MUNDO' track 16 is by artist 'Trio Vegabajeño'
-ourArtist = ['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA']
-df = df[df['artist'].isin(ourArtist)]
-
-st.write(' ') #break in the main website, equal to \n
-st.write(' ') #break in the main website, equal to \n
-st.write('''In the following interactive chart we can start visualizing the data. The total count of 
-reproctions per artist are show in the first chart. In the second chart, we can see the reproductions per chart. ''')
-st.write(' ') #break in the main website, equal to \n
-st.write(' ') #break in the main website, equal to \n
-
-########################
-# INTRO VISUALIZATION 
-########################
+st.write("Which are the top played songs of the most streamed artists on spotify? ")
 
 # selection
-artist_brush = alt.selection_multi(fields=["artist"])
+artist_brush = alt.selection_multi(fields = ["artist"])
 
 
-# selection.multi
+#selection.multi
 artist_chart = alt.Chart(df).mark_bar().encode(
-    Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+  Color('artist:O',
+          scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
-    x="sum(playcount)",
-    y=alt.Y("artist", sort='-x'),
-
+    x = "sum(playcount)",
+    y = alt.Y("artist",sort='-x'),
+    
 ).add_selection(artist_brush)
 
 album_chart = alt.Chart(df).mark_bar().encode(
-    Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+  Color('artist:O',
+          scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
-    x="count()",
-    y=alt.Y("album"),
-
+    x = "count()",
+    y = alt.Y("album"),
+    
 ).transform_filter(artist_brush)
 
-st.write(artist_chart & album_chart)
-
-########################
-# VISUALIZATION 1
-# Top played songs
-# per artist and album
-########################
-
-st.title("Which are the top streamed songs?")
-
-st.write('''Use the following filters to chose the artists or albums you are interested
-in comparing. ''')
-
-cols = st.columns(2)
+st.write(artist_chart&album_chart)
 
 
+
+cols=st.columns(2)
+
+st.write('Filter dataset by artists and album:')
 with cols[0]:
-    artists = st.multiselect('artist', df[df['artist'].isin(ourArtist)]['artist'].unique(
-    ), default=["ROSALÍA"])  # we add a default so we can plot an initial chart
+    artists=st.multiselect('artist',df[df['artist'].isin(ourArtist)]['artist'].unique(),default=["ROSALÍA"]) # we add a default so we can plot an initial chart
 with cols[1]:
-    albums = st.multiselect(
-        'album', df[df['artist'].isin(artists)]['album'].unique())
+    albums=st.multiselect('album',df[df['artist'].isin(artists)]['album'].unique())
 
-slice_labels = get_slide_data_tomas(df, artists, albums)
+slice_labels=get_slide_data_tomas(df,artists,albums)
+st.write("The filtered dataset contains {} songs".format(slice_labels.sum()))
 
-st.write("The filtered dataset contains {} songs, use the following slider to control the number of this filtered songs we will compare: ".format(slice_labels.sum()))
+song_count=st.slider('number_songs',
+                    min_value=0,
+                    max_value=len(slice_labels[slice_labels==1]),
+                    value=10)
 
-song_count = st.slider('number_songs',
-                       min_value=0,
-                       max_value=len(slice_labels[slice_labels == 1]),
-                       value=10)
-
-ordered_dataset = df[slice_labels].sort_values(
-    by='playcount', ascending=False).head(n=song_count)
-
-song_playcount = ordered_dataset['playcount'].mean()
-st.metric('Mean of listeners per song', '{:,}'.format(song_playcount))
+st.write("From the filtered dataset we are now comparing the top listened {} songs".format(song_count))
 
 
-chart1 = alt.Chart(ordered_dataset).mark_bar().encode(
-    Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+ordered_dataset=df[slice_labels].sort_values(by='playcount',ascending=False).head(n=song_count)
+st.write(len(ordered_dataset))
+song_playcount=ordered_dataset['playcount'].mean()
+st.metric('Mean listeners per song','{:,}'.format(song_playcount))
+# st.write(ordered_dataset)
+
+chart1=alt.Chart(ordered_dataset).mark_bar().encode(
+  Color('artist:O',
+          scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
     x='sum(playcount)',
-    y=alt.Y('name', sort='-x'),
+    y=alt.Y('name',sort='-x'),
     # color='artist'
 )
 
-chart2 = alt.Chart(ordered_dataset).mark_bar().encode(
-    Color('artist:O',
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+chart2=alt.Chart(ordered_dataset).mark_bar().encode(
+  Color('artist:O',
+          scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
     x='sum(playcount)',
-    y=alt.Y('album', sort='-x'),
+    y=alt.Y('album',sort='-x'),
     # color='artist'
 )
 
-
-cols_ = st.columns(2)
+cols_=st.columns(2)
 
 
 with cols_[0]:
@@ -169,20 +134,11 @@ with cols_[0]:
 with cols_[1]:
     st.altair_chart(chart2)
 
-st.write('The following graph shows in form of areas the relationships between the total reproductions of the songs. ')
-
-countValues = ordered_dataset.groupby(
-    ['name'])['playcount'].sum().sort_values()
+countValues=ordered_dataset.groupby(['name'])['playcount'].sum().sort_values()
 
 # Wrapt the javascript as html code
-my_html2 = f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>' + '''<div style="background-color: lightblue;"><div id="p5_div" style="width:100%;height:auto;"></div><script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script><script>
-
- /////////////////////////////////////////////////////////
- //**Reused code from Previous class Generative
- // systems where I developed the squarify function 
- // to generate floor plans
-///////////////////////////////////////////////////////
-
+# html(f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>')
+my_html2 =f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>'+ '''<div style="background-color: lightblue;"><div id="p5_div" style="width:100%;height:auto;"></div><script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script><script>
 //intital parameters
 var play = true
 
@@ -490,98 +446,92 @@ function draw() {
 </script><body><main></main></body>
 
 '''
-# Add html to streamlit app
-html(my_html2, width=500, height=500)
-st.caption('The following graph shows in form of areas the relationships between the total reproductions of the songs. ')
+# Execute your app
+st.write("Visualize the count with squarify")
+html(my_html2,width=500, height=500)
 
 ############
-# Hongyu's part
+# Hongyu's part 
 # ##############
 
 # Analysis of listening duration#
-
-
-def get_slide_hongyu(df2, artists):
+def get_slide_hongyu(df2,artists):
     labels = pd.Series([1] * len(df), index=df2.index)
 
     if artists:
         labels &= df2['artist'].isin(artists)
-
+    
     return labels
-
 
 st.title("Now, Let's see Who has the longest streamed time?")
 
 song_duration = int(ordered_dataset['listen_duration'].max())
-st.metric('The top streamed song has been played',
-          '{:,}'.format(song_duration), "hours")
+st.metric('The top streamed song has been played','{:,}'.format(song_duration),"hours")
 
-album_brush = alt.selection_multi(fields=["artist"])
+album_brush = alt.selection_multi(fields = ["artist"])
 
-chart_song = alt.Chart(df).mark_circle(size=100).encode(
+chart_song=alt.Chart(df).mark_circle(size = 100 ).encode(
     Color("artist",
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+            scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
     y='listen_duration:Q',
     opacity=alt.value(0.5),
-    x=alt.Y('artist', sort='-x')
+    x=alt.Y('artist',sort='-x')
 ).add_selection(album_brush).properties(width=400)
 
-chart_album = alt.Chart(df).mark_point(size=80).encode(
+chart_album=alt.Chart(df).mark_point(size = 80).encode( 
     Color("artist",
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=[B, R, YG, O, Y])),
+            scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+                      range=[B, R, YG, O, Y])), 
     x='sum(listen_duration)',
-    y=alt.Y('album', sort='-x')
-).transform_filter(album_brush).properties(width=400, height=500)
+    y=alt.Y('album',sort='-x')
+).transform_filter(album_brush).properties(width=400,height = 500)
 
 st.write(chart_song & chart_album)
 
 # Select artist and see their streamed time #
 
-cols_duration = st.columns(2)
+cols_duration=st.columns(2)
 with cols_duration[0]:
-    artists = st.multiselect('Artist', df[df['artist'].isin(
-        ourArtist)]["artist"].unique(), default=['Ed Sheeran', 'Drake'])
-slice_labels_hongyu = get_slide_hongyu(df, artists)
+    artists= st.multiselect('Artist', df[df['artist'].isin(ourArtist)]["artist"].unique(),default=['Ed Sheeran', 'Drake'])
+slice_labels_hongyu = get_slide_hongyu(df,artists)
 
 with cols_duration[1]:
-    song_count_duration = st.slider('number_songs',
-                                    min_value=0,
-                                    max_value=40,
-                                    value=40 if (len(slice_labels_hongyu[slice_labels_hongyu == 1]) > 40)
-                                    else (len(slice_labels_hongyu[slice_labels_hongyu == 1])))
+    song_count_duration =st.slider('number_songs',
+                    min_value=0,
+                    max_value=40,
+                    value= 40 if (len(slice_labels_hongyu[slice_labels_hongyu==1])>40) 
+                    else (len(slice_labels_hongyu[slice_labels_hongyu==1])))
 
-ordered_dataset_hongyu = df[slice_labels_hongyu].sort_values(
-    by='listen_duration', ascending=False).head(song_count_duration)
+ordered_dataset_hongyu=df[slice_labels_hongyu].sort_values(by='listen_duration',ascending=False).head(song_count_duration)
 
-st.write("The filtered dataset contains {} songs".format(
-    slice_labels_hongyu.sum()))
-st.write("From the filtered dataset we are now comparing the top streamed {} songs by listening time".format(
-    song_count_duration))
+st.write("The filtered dataset contains {} songs".format(slice_labels_hongyu.sum()))
+st.write("From the filtered dataset we are now comparing the top streamed {} songs by listening time".format(song_count_duration))
 
 
-duration_chart_song = alt.Chart(ordered_dataset_hongyu).mark_circle(size=60).encode(
+duration_chart_song=alt.Chart(ordered_dataset_hongyu).mark_circle(size=60).encode(
     Color("artist",
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+            scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
                       range=[B, R, YG, O, Y])),
     y='sum(listen_duration)',
-    x=alt.Y('name', sort='-x'),
-
+    x=alt.Y('name',sort='-x'),
+    
 ).properties(width=700)
 
-duration_chart_album = alt.Chart(ordered_dataset_hongyu).mark_bar().encode(
+duration_chart_album=alt.Chart(ordered_dataset_hongyu).mark_bar().encode(
     Color("artist",
-          scale=Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
-                      range=[B, R, YG, O, Y])),
+            scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
+                      range=[B, R, YG, O, Y])),    
     x='sum(listen_duration)',
-    y=alt.Y('album', sort='-x'),
+    y=alt.Y('album',sort='-x'),
 ).properties(width=700)
 
 # st.altair_chart(duration_chart)
 st.write(duration_chart_song)
 st.write(duration_chart_album)
 
-st.write('[1] https://chartmasters.org/most-streamed-artists-ever-on-spotify/')
-st.markdown(
-    "This project was created by Hongyu Mao and Tomas Cabezon for the [Interactive Data Science](https://dig.cmu.edu/ids2022) course at [Carnegie Mellon University](https://www.cmu.edu).")
+
+
+
+st.markdown("This project was created by Hongyu Mao and Tomas Cabezon for the [Interactive Data Science](https://dig.cmu.edu/ids2022) course at [Carnegie Mellon University](https://www.cmu.edu).")
+
