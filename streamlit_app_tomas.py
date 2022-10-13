@@ -137,8 +137,14 @@ with cols_[1]:
 countValues=ordered_dataset.groupby(['name'])['playcount'].sum().sort_values()
 
 # Wrapt the javascript as html code
-# html(f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>')
 my_html2 =f'<script>var songs={list(countValues.to_dict().keys())};var roomSizes = {list(countValues.to_dict().values())}</script>'+ '''<div style="background-color: lightblue;"><div id="p5_div" style="width:100%;height:auto;"></div><script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script><script>
+
+ /////////////////////////////////////////////////////////
+ //**Reused code from Previous class Generative
+ // systems where I developed the squarify function 
+ // to generate floor plans
+///////////////////////////////////////////////////////
+
 //intital parameters
 var play = true
 
