@@ -31,7 +31,7 @@ def get_slide_data_tomas(df,artists,albums):
 
 
 # Start#
-st.title("Let's analyze some Spotify Data 🐧📊.")
+st.title("Let's analyze some Spotify Data 🎶🎤🧑🏻‍🎤📊.")
 
 
 
