@@ -466,8 +466,10 @@ def get_slide_hongyu(df2,artists):
     
     return labels
 
+# title#
 st.title("Now, Let's see Who has the longest streamed time?")
 
+# the longest play time #
 song_duration = int(ordered_dataset['listen_duration'].max())
 st.metric('The top streamed song has been played','{:,}'.format(song_duration),"hours")
 
@@ -492,8 +494,12 @@ chart_album=alt.Chart(df).mark_point(size = 80).encode(
 
 st.write(chart_song & chart_album)
 
-# Select artist and see their streamed time #
 
+
+
+#### Select artist and see their streamed time ####
+
+# Multiselection Box, I set two defaluts #
 cols_duration=st.columns(2)
 with cols_duration[0]:
     artists= st.multiselect('Artist', df[df['artist'].isin(ourArtist)]["artist"].unique(),default=['Ed Sheeran', 'Drake'])
@@ -511,7 +517,7 @@ ordered_dataset_hongyu=df[slice_labels_hongyu].sort_values(by='listen_duration',
 st.write("The filtered dataset contains {} songs".format(slice_labels_hongyu.sum()))
 st.write("From the filtered dataset we are now comparing the top streamed {} songs by listening time".format(song_count_duration))
 
-
+# Songs' ranking #
 duration_chart_song=alt.Chart(ordered_dataset_hongyu).mark_circle(size=60).encode(
     Color("artist",
             scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
@@ -521,6 +527,7 @@ duration_chart_song=alt.Chart(ordered_dataset_hongyu).mark_circle(size=60).encod
     
 ).properties(width=700)
 
+# albums' ranking #
 duration_chart_album=alt.Chart(ordered_dataset_hongyu).mark_bar().encode(
     Color("artist",
             scale = Scale(domain=['Bad Bunny', 'Drake', 'Ed Sheeran', 'keshi', 'ROSALÍA'],
