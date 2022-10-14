@@ -516,7 +516,7 @@ def get_slide_hongyu(df,artists):
 
 st.title("Who has the longest streamed time?")
 
-song_duration = int(ordered_dataset['listen_duration'].max())
+song_duration = int(df['listen_duration'].max())
 st.metric('The top streamed song has been played','{:,}'.format(song_duration),"hours")
 
 album_brush = alt.selection_multi(fields = ["artist"])

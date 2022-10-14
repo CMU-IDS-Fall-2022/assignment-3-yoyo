@@ -10,7 +10,7 @@
 
 - Which are the most listened artists on spotify? How do you compare their listeners with our personal favorites? Rosalía (for Tomas) and Keshi (for Hongyu). 
 - How are the listens among the artist shared? Is the most famous songs that make them the most streamed artists, or are the listeners shared among the discography and not certain songs? 
-- Hongyou reasoning
+- Review the data from streamed time perspective and let the user explore how the ranking of songs changes by shifting the metrics
 
 
 ## Design
