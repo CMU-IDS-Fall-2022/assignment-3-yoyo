@@ -1,7 +1,7 @@
 #CHANGE
 # CMU Interactive Data Science Assigment 3
 
-* **Team members**: tcabezon@andrew.cmu.edu and XXXX@andrew.cmu.edu 
+* **Team members**: tcabezon@andrew.cmu.edu and hongyum@andrew.cmu.edu 
 * **Online URL**: https://cmu-ids-fall-2022-assignment-3-yoyo-streamlit-app-61ivxd.streamlitapp.com/
 ## Instructions
 

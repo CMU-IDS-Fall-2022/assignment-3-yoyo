@@ -1,5 +1,5 @@
 # Project name
-
+Top Streaming in Spotify
 ![A screenshot of your application. Could be a GIF.](screenshot.gif)
 
 
@@ -30,7 +30,10 @@
 - [x] Create streamlit app
         . Introductiona and brief data description -> Tomas (2h)
         . Play count filter by artist and albutm and play count sum diplay -> Tomas (3h)
-        . _________ -> Hongyu  (______h)
+        . Play with different types of charts and customize the shapes and colors-> Hongyu  (2h)
+        . Implement the selected features for listening duration -> Hongyu  (7h)
+        . Questions & insights reasoning -> Hongyu  (1h)
+
 - [x] Html and p5js embeding ->  Tomas (7h) 
         . Try to implement an already squarify function working on p5.js on the streamlit app. This squarify code is based on Squarified Treempas article -> https://link.springer.com/chapter/10.1007/978-3-7091-6783-0_4 
         This function is similar to Squarify library -> https://www.geeksforgeeks.org/treemaps-in-python-using-squarify/
